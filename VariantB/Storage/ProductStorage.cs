@@ -8,10 +8,10 @@ using VariantC.TaskClasses;
 
 namespace VariantB.Storage
 {
-    class ProductStorage : Storage
+    class ProductStorage : Storage // Коллекция всех продуктов в заказах
     {
         List<ProductInOrder> _storage = new List<ProductInOrder>();
-        public ProductStorage()
+        public ProductStorage() // Конструктор без праметров
         {
             storageName = "СкладПродуктов";
             storagePlace = "Харьков";
@@ -20,13 +20,17 @@ namespace VariantB.Storage
         {
             get { return _storage.Count; }
         }
-        public void AddProduct(ProductInOrder newProduct)
+        public void AddProduct(ProductInOrder newProduct)// Добавить продукт
         {
             _storage.Add(newProduct);
         }
-        public void RemoveAll()
+        public void RemoveAll() // Удалить все продукты
         {
             _storage.Clear();
+        }
+        public List<ProductInOrder> GetProdictsInOrder() // Вернуть список всех продуктов
+        {
+            return _storage;
         }
         public ProductInOrder this[int index] // Индексатор 
         {
@@ -39,7 +43,7 @@ namespace VariantB.Storage
                 _storage[index] = value;
             }
         }
-        public IEnumerator GetEnumerator() // Итератор словаря
+        public IEnumerator GetEnumerator() // Итератор
         {
             for (int i = 0; i < _storage.Count; i++)
             {

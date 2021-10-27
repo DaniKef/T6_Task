@@ -8,17 +8,17 @@ using VariantC.TaskClasses;
 
 namespace VariantB.Storage
 {
-    class OrderStorage : Storage
+    class OrderStorage : Storage // Коллекция всех заказов
     {
         private Dictionary<string, Order> _storage = new Dictionary<string, Order>(); // ключ- номер телефона заказчика, value - заказ
-        public OrderStorage()
+        public OrderStorage() // Конструктор без параметров
         {
             storageName = "B-52";
             storagePlace = "Харьков";
         }
-        public void AddOrder(long phone, Order newOrder) // Добавить заказ, телефон-заказ
+        public void AddOrder(string phone, Order newOrder) // Добавить заказ, телефон-заказ
         {
-            _storage.Add(String.Format("{0:+(###)###-####}", phone), newOrder);
+            _storage.Add(phone, newOrder);
         }
         public void RemoveOrder(string phone) // Выполнить заказ. удалить
         {
@@ -29,12 +29,24 @@ namespace VariantB.Storage
         {
             get { return _storage.Count; }
         }
-        public Dictionary<string, Order> this[int index] // Индексатор словаря
+        public (string, Order) this[int index] // Индексатор словаря
         {
             get
             {
-                return new Dictionary<string, Order>
-                    { { _storage.ElementAt(index).Key , _storage.ElementAt(index).Value} };
+                return (_storage.ElementAt(index).Key, _storage.ElementAt(index).Value);
+            }
+            set
+            {
+                if(index < 0 || index > _storage.Count - 1)
+                {
+                    throw new ArgumentException($"{value}"); // Исключение.
+                }
+                else
+                {
+                    string tKEy = _storage.ElementAt(index).Key;
+                    _storage.Remove(tKEy);
+                    _storage.Add(value.Item1, value.Item2);
+                }
             }
         }
         public IEnumerator GetEnumerator() // Итератор словаря

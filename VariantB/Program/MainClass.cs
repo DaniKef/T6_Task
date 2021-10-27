@@ -45,34 +45,34 @@ namespace VariantC
             var AppleProduct = new Product();
             var TableProduct = new Product();
             var MouseProduct = new Product();
-            var TShirtProduct = new Product("Футболка", "Синяя футболка, xl", 450);//создание продуктов
-            AppleProduct.CreateProduct("Яблоки", "Свежие яблоки \"Малинка\"", 15.60);
+            var TShirtProduct = new Product("Футболка", "Синяя футболка, xl", 450);//создание продуктов-конструктор
+            AppleProduct.CreateProduct("Яблоки", "Свежие яблоки \"Малинка\"", 15.60); //создание продуктов-методы
             TableProduct.CreateProduct("Стол", "Лучший в мире стол", 2100);
-            MouseProduct.CreateProduct("Мышь", "Logitech. Хорошее качество.", 800); //создание продуктов
+            MouseProduct.CreateProduct("Мышь", "Logitech. Хорошее качество.", 800); 
 
-            List<ProductInOrder> productsOrder = new List<ProductInOrder>(); // для составления товаров, список товаров
+            ProductStorage productInOrderStorage = new ProductStorage(); // коллекция продуктов
+            OrderStorage storageOrder = new OrderStorage(); // коллекция заказов
 
-            OrderStorage storageOrder = new OrderStorage();
+            productInOrderStorage.AddProduct(new ProductInOrder(TableProduct, 3)); // Продукты в коллекцию
+            productInOrderStorage.AddProduct(new ProductInOrder(AppleProduct, 55));
+            productInOrderStorage.AddProduct(new ProductInOrder(TShirtProduct, 5));
+            productInOrderStorage.AddProduct(new ProductInOrder(MouseProduct, 7));
+            productInOrderStorage.AddProduct(new ProductInOrder(TShirtProduct, 10));
+            productInOrderStorage.AddProduct(new ProductInOrder(TableProduct, 1));
+            productInOrderStorage.AddProduct(new ProductInOrder(AppleProduct, 20));
+            productInOrderStorage.AddProduct(new ProductInOrder(TShirtProduct, 2));//
 
-            productsOrder.Add(new ProductInOrder(AppleProduct, 55));// добавить товар в список
-            productsOrder.Add(new ProductInOrder(TableProduct, 3));// добавить товар в список
+            storageOrder.AddOrder("0996154567", new Order(83444, 14, new List<ProductInOrder>() {
+            productInOrderStorage[0], productInOrderStorage[1]}));// создать добавить заказ // 1 ЗАКАЗ//
 
-            storageOrder.AddOrder(0996154567, new Order(83444, 14, productsOrder));// создать добавить заказ // 1 ЗАКАЗ//
+            storageOrder.AddOrder("0994433565", new Order(80111, 15, new List<ProductInOrder>() {
+            productInOrderStorage[2]}));// добавить заказ // 2 ЗАКАЗ//
 
-            productsOrder.Clear(); //очистить список товаров, чтоб составить заново для нового заказа
-            productsOrder.Add(new ProductInOrder(TShirtProduct, 5)); //Опять Заполнение
-            storageOrder.AddOrder(0994433565, new Order(80111, 15, productsOrder));  //2 ЗАКАЗ//
+            storageOrder.AddOrder("0568462346", new Order(90999, 15, new List<ProductInOrder>() {
+            productInOrderStorage[3], productInOrderStorage[4], productInOrderStorage[5]}));// добавить заказ // 3 ЗАКАЗ//
 
-            productsOrder.Clear();
-            productsOrder.Add(new ProductInOrder(MouseProduct, 7));
-            productsOrder.Add(new ProductInOrder(TShirtProduct, 10));
-            productsOrder.Add(new ProductInOrder(TableProduct, 1));
-            storageOrder.AddOrder(0568462346, new Order(90999, 15, productsOrder));  //3 ЗАКАЗ//
-
-            productsOrder.Clear();
-            productsOrder.Add(new ProductInOrder(AppleProduct, 20));
-            productsOrder.Add(new ProductInOrder(TShirtProduct, 2));
-            storageOrder.AddOrder(0568322243, new Order(10000, 16, productsOrder)); //4 ЗАКАЗ//
+            storageOrder.AddOrder("0564750381", new Order(10000, 16, new List<ProductInOrder>() {
+            productInOrderStorage[6], productInOrderStorage[7]}));// добавить заказ // 4 ЗАКАЗ//
 
             for (int i = 0; i < storageOrder.Count; i++) // Вывести все заказы
             {
@@ -83,7 +83,7 @@ namespace VariantC
             Functions.SearchOrdersWithSumAndCOuntOfProducts(storageOrder, 10000, 2); //Вывести номера заказов, сумма которых не превосходит заданную и количество различных товаров равно заданному.
             Functions.SearchThisProduction(storageOrder, "Футболка"); // Вывести номера заказов, содержащих заданный товар.
             Functions.SearchNotContainsProductAndToday(storageOrder, "Яблоки", 15);//Вывести номера заказов, не содержащих заданный товар и поступивших в течение текущего дня.
-            storageOrder.AddOrder(0556833325, Functions.CreateOrder(storageOrder, 15));//Сформировать новый заказ, состоящий из товаров, заказанных в текущий день. //5 ЗАКАЗ//
+            storageOrder.AddOrder("0556833325", Functions.CreateOrder(storageOrder, 15));//Сформировать новый заказ, состоящий из товаров, заказанных в текущий день. //5 ЗАКАЗ//
 
             Console.WriteLine("---------------------------------------------");
             for (int i = 0; i < storageOrder.Count; i++) // Вывести все заказы
@@ -97,6 +97,7 @@ namespace VariantC
             foreach (var item in storageOrder)
                 Console.WriteLine(item);
             Console.WriteLine($"За все время было выполнено {Order.orderCount} заказов."); //Выводит количество всех заказов
+
             Console.ReadKey();
         }
     }

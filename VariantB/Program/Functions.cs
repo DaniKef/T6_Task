@@ -14,9 +14,9 @@ namespace VariantC.Program
         {
             for (int i = 0; i < orderList.Count; i++) // перебирает все заказы
             {
-                if (orderList[i].First().Value.CountSumOfProducts() <= sum && orderList[i].First().Value.ProductsInOrder.Count == countProducts)// если сумма в заказе меньше заданной и кол-во товаров == заданному
+                if (orderList[i].Item2.CountSumOfProducts() <= sum && orderList[i].Item2.ProductsInOrder.Count == countProducts)// если сумма в заказе меньше заданной и кол-во товаров == заданному
                 {
-                    Console.WriteLine(orderList[i].First().Value.OrderNumber);// Вывести номер
+                    Console.WriteLine(orderList[i].Item2.OrderNumber);// Вывести номер
                 }
             }
         }
@@ -24,11 +24,11 @@ namespace VariantC.Program
         {
             for (int i = 0; i < orderList.Count; i++)// перебирает все заказы
             {
-                for(int j = 0; j<orderList[i].First().Value.ProductsInOrder.Count;j++) // Перебирает все товары в заказе
+                for(int j = 0; j<orderList[i].Item2.ProductsInOrder.Count;j++) // Перебирает все товары в заказе
                 {
-                    if (orderList[i].First().Value.ProductsInOrder[j].ProductIn.ProductName == productName)// если совпадаю имя
+                    if (orderList[i].Item2.ProductsInOrder[j].ProductIn.ProductName == productName)// если совпадаю имя
                     {
-                        Console.WriteLine(orderList[i].First().Value.OrderNumber);// Вывести номер
+                        Console.WriteLine(orderList[i].Item2.OrderNumber);// Вывести номер
                     }
                 }
             }
@@ -38,16 +38,16 @@ namespace VariantC.Program
             bool isContains = false; // если заказы есть
             for (int i = 0; i < orderList.Count; i++)// перебирает все заказы
             {
-                for (int j = 0; j < orderList[i].First().Value.ProductsInOrder.Count; j++)// Перебирает все товары в заказе
+                for (int j = 0; j < orderList[i].Item2.ProductsInOrder.Count; j++)// Перебирает все товары в заказе
                 {
-                    if (orderList[i].First().Value.ProductsInOrder[j].ProductIn.ProductName == productName) //если такой товар есть
+                    if (orderList[i].Item2.ProductsInOrder[j].ProductIn.ProductName == productName) //если такой товар есть
                     {
                         isContains = true;
                     }
                 }
-                if (!isContains && orderList[i].First().Value.ReceiptDay.Date.Day == day)// если такого товара нет и день== заданному дню
+                if (!isContains && orderList[i].Item2.ReceiptDay.Date.Day == day)// если такого товара нет и день== заданному дню
                 {
-                    Console.WriteLine(orderList[i].First().Value.OrderNumber);// Вывести номер
+                    Console.WriteLine(orderList[i].Item2.OrderNumber);// Вывести номер
                 }
                 isContains = false;//сбросить
             }
@@ -57,11 +57,11 @@ namespace VariantC.Program
             List<ProductInOrder> productsOrder = new List<ProductInOrder>(); // для составления товаров список товаров
             for (int i = 0; i < orderList.Count; i++)// перебирает все заказы
             {
-                if (orderList[i].First().Value.ReceiptDay.Date.Day == day) // если нашел нужный день
+                if (orderList[i].Item2.ReceiptDay.Date.Day == day) // если нашел нужный день
                 {
-                    for (int j = 0; j < orderList[i].First().Value.ProductsInOrder.Count; j++)// Перебирает все товары в заказе этого дня
+                    for (int j = 0; j < orderList[i].Item2.ProductsInOrder.Count; j++)// Перебирает все товары в заказе этого дня
                     {
-                        productsOrder.Add(orderList[i].First().Value.ProductsInOrder[j]); // и добавляет их в список товаров
+                        productsOrder.Add(orderList[i].Item2.ProductsInOrder[j]); // и добавляет их в список товаров
                     }
                 }
             }
@@ -73,15 +73,15 @@ namespace VariantC.Program
             int countOfProduct = 0; // считает кол-во заданного товара
             for (int i = 0; i < orderList.Count; i++)// перебирает все заказы
             {
-                for (int j = 0; j < orderList[i].First().Value.ProductsInOrder.Count; j++)// Перебирает все товары в заказе
+                for (int j = 0; j < orderList[i].Item2.ProductsInOrder.Count; j++)// Перебирает все товары в заказе
                 {
-                    if (orderList[i].First().Value.ProductsInOrder[j].ProductIn.ProductName == productName)// Если имена совпадают в этом заказе
+                    if (orderList[i].Item2.ProductsInOrder[j].ProductIn.ProductName == productName)// Если имена совпадают в этом заказе
                     {
                         countOfProduct++; // Увеличить счетчик
                     }
                 }
                 if (countOfProduct == amount) // Если счетчик заданного товара достиг заданного количества
-                    orderList.RemoveOrder(orderList[i].First().Key); // Удалить заказ
+                    orderList.RemoveOrder(orderList[i].Item1); // Удалить заказ
                 countOfProduct = 0; // Сбросить счетчик
             }
         }
