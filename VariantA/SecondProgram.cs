@@ -15,7 +15,7 @@ namespace VariantA
         }
         private void Inizialize()
         {
-            for (int i = 1; i <= 8; i++)
+            for (int i = 1; i <= 3; i++)
                 myList.AddLast(i);
         }
         public void DeleteEverySecond()

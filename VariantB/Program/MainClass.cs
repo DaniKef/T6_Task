@@ -76,7 +76,7 @@ namespace VariantC
 
             for (int i = 0; i < storageOrder.Count; i++) // Вывести все заказы
             {
-                Console.WriteLine(string.Join(Environment.NewLine, storageOrder[i]));
+                Console.WriteLine(storageOrder[i]);
             }
             Console.WriteLine("-------------------------------------------------");
 

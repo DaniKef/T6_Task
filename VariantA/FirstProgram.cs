@@ -8,7 +8,7 @@ namespace VariantA
 {
     class FirstProgram // Для ArrayList
     {
-        public ArrayList myList = new ArrayList() { 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        public ArrayList myList = new ArrayList() { 1, 2, 3, 4, 5};
         public void DeleteEverySecond() // Удаление каждого второго по кругу
         {
             int indexCount = 0; // через раз удаляет элемент

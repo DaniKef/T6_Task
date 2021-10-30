@@ -12,6 +12,8 @@ using System.Diagnostics;
 // LinkedList универсальная коллекция, что повышает производительность
 // Изменение двусвязного списка более легче, чем массива. Вставить удалить элемент
 // Просто поменять указатели на след. и пред. . Массив надо заново  воссоздавать
+// Наибольшие затраты будут уходить на упаковку-распаковку, т.к. в arraylist
+// все хранится в object
 // Однако, это доп. хранилище для ссылок
 namespace VariantA
 {
@@ -32,17 +34,17 @@ namespace VariantA
                 Console.WriteLine(item);
             }
             /////////////////////////////LinkedList
-            var second = new SecondProgram();
-            foreach(var item in second.myList)
-            {
-                Console.WriteLine(item);
-            }
-            Console.WriteLine();
-            second.DeleteEverySecond();
-            foreach (var item in second.myList)
-            {
-                Console.WriteLine(item);
-            }
+            //var second = new SecondProgram();
+            //foreach (var item in second.myList)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            //Console.WriteLine();
+            //second.DeleteEverySecond();
+            //foreach (var item in second.myList)
+            //{
+            //    Console.WriteLine(item);
+            //}
             Console.ReadKey();
         }
     }
