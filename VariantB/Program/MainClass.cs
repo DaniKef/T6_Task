@@ -74,6 +74,42 @@ namespace VariantC
             storageOrder.AddOrder("0564750381", new Order(10000, 16, new List<ProductInOrder>() {
             productInOrderStorage[6], productInOrderStorage[7]}));// добавить заказ // 4 ЗАКАЗ//
 
+
+            int choice = 0;
+            string productName = "";
+            string productDescription = "";
+            double price = 0;
+            int amount = 0;
+            int orderNumber = 0;
+            string phoneNumber = "";
+            Console.WriteLine("1.Сделать заказ.\n2.Выйти.");
+            do
+            {
+                choice = Int32.Parse(Console.ReadLine());
+                if(choice == 1)
+                {
+                    Console.WriteLine("Имя продукта: ");
+                    productName = Console.ReadLine();
+                    Console.WriteLine("Описание: ");
+                    productDescription = Console.ReadLine();
+                    Console.WriteLine("Цена: ");
+                    price = Int32.Parse(Console.ReadLine());
+                    Console.WriteLine("Количество: ");
+                    amount = Int32.Parse(Console.ReadLine());
+                    Console.WriteLine("Номер заказа: ");
+                    orderNumber = Int32.Parse(Console.ReadLine());
+                    Console.WriteLine("Ваш номер телефона: ");
+                    phoneNumber = Console.ReadLine();
+
+                    var someProduct = new Product(productName, productDescription, price);
+                    productInOrderStorage.AddProduct(new ProductInOrder(someProduct, amount));
+                    storageOrder.AddOrder(phoneNumber, new Order(orderNumber, new List<ProductInOrder>() {
+                    productInOrderStorage[productInOrderStorage.Count-1]}));
+                }
+            } while (choice != 2);
+
+
+
             for (int i = 0; i < storageOrder.Count; i++) // Вывести все заказы
             {
                 Console.WriteLine(storageOrder[i]);
@@ -83,8 +119,12 @@ namespace VariantC
             Functions.SearchOrdersWithSumAndCOuntOfProducts(storageOrder, 10000, 2); //Вывести номера заказов, сумма которых не превосходит заданную и количество различных товаров равно заданному.
             Functions.SearchThisProduction(storageOrder, "Футболка"); // Вывести номера заказов, содержащих заданный товар.
             Functions.SearchNotContainsProductAndToday(storageOrder, "Яблоки", 15);//Вывести номера заказов, не содержащих заданный товар и поступивших в течение текущего дня.
-            storageOrder.AddOrder("0556833325", Functions.CreateOrder(storageOrder, 15));//Сформировать новый заказ, состоящий из товаров, заказанных в текущий день. //5 ЗАКАЗ//
-
+            if (Functions.CreateOrder(storageOrder, 15).ProductsInOrder.Count != 0) // Проверка, если товаров е нашлось
+            {
+                Order.orderCount--;
+                storageOrder.AddOrder("0556833325", Functions.CreateOrder(storageOrder, 15));//Сформировать новый заказ, состоящий из товаров, заказанных в текущий день. //5 ЗАКАЗ//
+            }
+          
             Console.WriteLine("---------------------------------------------");
             for (int i = 0; i < storageOrder.Count; i++) // Вывести все заказы
             {

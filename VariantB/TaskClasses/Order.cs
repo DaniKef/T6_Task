@@ -20,10 +20,17 @@ namespace VariantC.TaskClasses
             ReceiptDay = new DateTime(2020, 10, day); // Передается только день, все остальное остается.
             orderCount++;
         }
+        public Order(int orderNumber, List<ProductInOrder> newOrder) // Конструктор.
+        {
+            OrderNumber = orderNumber; // устанавливает номер
+            ProductsInOrder.AddRange(newOrder.ToArray());// получает все заказы
+            ReceiptDay = DateTime.Today; // день ставится сегодняшний.
+            orderCount++;
+        }
         public Order() // Конструктор.
         {
-            OrderNumber = 0; 
-            ReceiptDay = new DateTime(0,0,0); 
+            OrderNumber = 0;
+            ReceiptDay = new DateTime(0, 0, 0);
         }
         public int OrderNumber // Свойство номера заказа.
         {
